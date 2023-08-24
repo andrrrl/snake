@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=500, initial-scale=1.0">
+    <title>Snake</title>
+    <style>
+        .board {
+            position: relative;
+            border: 1px solid rebeccapurple;
+        }
+        .snake {
+            position: absolute;
+            border-radius: 5px;
+            overflow: visible;
+            width: auto !important;
+            height: auto !important;
+        }
+        .snake div {
+            background: rebeccapurple;
+        }
+        .coords {
+            display: flex;
+            justify-content: space-between;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="board">
+        <div class="snake"></div>
+    </div>
+    <div class="coords">
+        <div class="config"></div>
+        <div class="x">x: <span></span></div>
+        <div class="y">y: <span></span></div>
+    </div>
+</body>
+<script src="snake.js"></script>
+</html>
