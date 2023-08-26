@@ -48,11 +48,9 @@ const SnakeGame = () => {
             food.current = true
             boardConfig.foodDiv.style.width = `${boardConfig.cellSize}px`
             boardConfig.foodDiv.style.height = `${boardConfig.cellSize}px`
-            // boardConfig.foodDiv.style.border = `1px solid red`
-            // boardConfig.foodDiv.style.borderRadius = `10px`
-            boardConfig.foodDiv.style.position = 'absolute'
             boardConfig.foodDiv.style.left = `${food.x}px`
             boardConfig.foodDiv.style.top = `${food.y}px`
+            boardConfig.foodDiv.style.position = 'absolute'
             boardConfig.foodDiv.style.lineHeight = 0.7
             boardConfig.foodDiv.style.trsansform = 'scale(0.8)'
             boardConfig.foodDiv.innerHTML = boardConfig.getRandomFood()
@@ -76,13 +74,15 @@ const SnakeGame = () => {
             const index = Math.floor(Math.random(0, boardConfig.foodTypes.length) * boardConfig.foodTypes.length)
             return  boardConfig.foodTypes[index]
         },
-        eatenFood: 2,
+        eatenFood: 1,
         gameOver: false,
         initGame: (function loop() {
             setTimeout(() => {
                 if (!boardConfig.gameOver) {
                     coordsView.querySelector('.x span').innerHTML = snake.currentPosition.left
                     coordsView.querySelector('.y span').innerHTML = snake.currentPosition.top
+                    snake.wallCollision() 
+                    snake.tailBite()
                     snake.move()
                     loop()
                 }
@@ -139,10 +139,6 @@ const SnakeGame = () => {
         tail: [],
         pathCoords: [],
         move: () => {
-            if (!snake.isDead) {
-                snake.wallCollision() 
-                snake.tailBite()
-            }
 
             if (snake.currentDirection.negative) {
                 snake.currentPosition[snake.currentDirection.cssProp] -= boardConfig.movementRatePixels
@@ -210,21 +206,15 @@ const SnakeGame = () => {
         isDead: false,
         viewContainer: document.querySelector('.snake'),
         growTail: (id, coords) => {
+            const tailPart = document.createElement(`div`)
+            tailPart.setAttribute('id', `tail-${id}`)
+            tailPart.className = 'snake-tail'
+            tailPart.style.height = `${boardConfig.movementRatePixels}px`
+            tailPart.style.width = `${boardConfig.movementRatePixels}px`
             if (id === 1) {
-                const snakeHead = document.createElement(`div`)
-                snakeHead.setAttribute('id', `head`)
-                snakeHead.className = 'snake-head'
-                snakeHead.style.height = `${boardConfig.movementRatePixels}px`
-                snakeHead.style.width = `${boardConfig.movementRatePixels}px`
-                snake.viewContainer.appendChild(snakeHead)
-            } else {
-                const tailPart = document.createElement(`div`)
-                tailPart.setAttribute('id', `tail-${id}`)
-                tailPart.className = 'snake-tail'
-                tailPart.style.height = `${boardConfig.movementRatePixels}px`
-                tailPart.style.width = `${boardConfig.movementRatePixels}px`
-                snake.viewContainer.parentNode.appendChild(tailPart)
+                tailPart.style.borderRadius = '5px'
             }
+            snake.viewContainer.parentNode.appendChild(tailPart)
             if (coords) {
                 snake.tail.push({ id, coords })
             }
@@ -259,8 +249,6 @@ const SnakeGame = () => {
         }
     }
 
-
-
     snake.viewContainer.style.height = `${boardConfig.movementRatePixels}px`
     snake.viewContainer.style.width = `${boardConfig.movementRatePixels}px`
 
@@ -281,6 +269,15 @@ const SnakeGame = () => {
         boardConfig.resetGame()
         snake.resetSnake()
         boardConfig.initGame()
+    }, false)
+
+    document.addEventListener('keypress', (e) => {
+        if (e.code === 'Enter') {
+            gameOverlay.style.display = 'none'
+            boardConfig.resetGame()
+            snake.resetSnake()
+            boardConfig.initGame()
+        }
     }, false)
 }
 
