@@ -5,3 +5,7 @@
 ___
 ### How to play
 Move around using the arrow keys (up, down, left, right)
+
+___
+### Play
+[Play Ílala](./snake.html)

@@ -211,9 +211,6 @@ const SnakeGame = () => {
             tailPart.className = 'snake-tail'
             tailPart.style.height = `${boardConfig.movementRatePixels}px`
             tailPart.style.width = `${boardConfig.movementRatePixels}px`
-            if (id === 1) {
-                tailPart.style.borderRadius = '5px'
-            }
             snake.viewContainer.parentNode.appendChild(tailPart)
             if (coords) {
                 snake.tail.push({ id, coords })
