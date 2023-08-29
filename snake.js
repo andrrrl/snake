@@ -103,34 +103,14 @@ const SnakeGame = () => {
         if (snake.isDead) {
             return
         }
-
-        switch (e.code) {
-            case 'ArrowLeft':
-                if (snake.currentDirection.cssProp === 'left' && !snake.currentDirection.negative) {
-                    return
-                }
-                snake.setMoveTo({ direction: 'x', negative: true, cssProp: 'left' })
-                break
-            case 'ArrowRight':
-                if (snake.currentDirection.cssProp === 'left' && snake.currentDirection.negative) {
-                    return
-                }
-                snake.setMoveTo({ direction: 'x', negative: false, cssProp: 'left' })
-                break
-            case 'ArrowUp':
-                if (snake.currentDirection.cssProp === 'top' && !snake.currentDirection.negative) {
-                    return
-                }
-                snake.setMoveTo({ direction: 'y', negative: true, cssProp: 'top' })
-                break
-            case 'ArrowDown':
-                if (snake.currentDirection.cssProp === 'top' && snake.currentDirection.negative) {
-                    return
-                }
-                snake.setMoveTo({ direction: 'y', negative: false, cssProp: 'top' })
-                break
-        }
+        snake.userMove(e.code)
     }
+
+    const arrowButtons = document.querySelectorAll('.arrow-button')
+
+    arrowButtons.forEach((button, index) => {
+        button.addEventListener('click', (e) => snake.userMove(e.target.id))
+    })
 
     const snake = {
         currentAxis: boardConfig.startAxisDirection ?? 'x',
@@ -165,6 +145,34 @@ const SnakeGame = () => {
         setMoveTo: (newDirection) => {
             snake.currentDirection = newDirection
 
+        },
+        userMove: (direction) => {
+            switch (direction) {
+                case 'ArrowLeft':
+                    if (snake.currentDirection.cssProp === 'left' && !snake.currentDirection.negative) {
+                        return
+                    }
+                    snake.setMoveTo({ direction: 'x', negative: true, cssProp: 'left' })
+                    break
+                case 'ArrowRight':
+                    if (snake.currentDirection.cssProp === 'left' && snake.currentDirection.negative) {
+                        return
+                    }
+                    snake.setMoveTo({ direction: 'x', negative: false, cssProp: 'left' })
+                    break
+                case 'ArrowUp':
+                    if (snake.currentDirection.cssProp === 'top' && !snake.currentDirection.negative) {
+                        return
+                    }
+                    snake.setMoveTo({ direction: 'y', negative: true, cssProp: 'top' })
+                    break
+                case 'ArrowDown':
+                    if (snake.currentDirection.cssProp === 'top' && snake.currentDirection.negative) {
+                        return
+                    }
+                    snake.setMoveTo({ direction: 'y', negative: false, cssProp: 'top' })
+                    break
+            }
         },
         foodEaten: () => {
             const edibleFood = boardConfig.snakeFood.find((sf) => {

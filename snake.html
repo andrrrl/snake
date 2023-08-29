@@ -54,6 +54,23 @@
             border: 2px solid whitesmoke;
             cursor: pointer;
         }
+        .controls-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+        .controls-container .row-1, .controls-container .row-2 {
+            display: flex;
+            justify-content: center;
+        }
+        .controls-container button {
+            border: 0;
+            padding: 0;
+            font-size: 2rem;
+            margin: .35rem;
+            margin-bottom: 0rem;
+            background: none;
+        }
     </style>
 </head>
 <body>
@@ -68,6 +85,18 @@
             <div class="config"></div>
             <div class="x">x: <span></span></div>
             <div class="y">y: <span></span></div>
+        </div>
+    </div>
+    <div class="controls-container">
+        <div class="controls">
+            <div class="row-1">
+                <button type="button" id="ArrowUp" class="arrow-button">⬆️</button>
+            </div>
+            <div class="row-2">
+                <button type="button" id="ArrowLeft" class="arrow-button">⬅️</button>
+                <button type="button" id="ArrowDown" class="arrow-button">⬇️</button>
+                <button type="button" id="ArrowRight" class="arrow-button">➡️</button>
+            </div>
         </div>
     </div>
 </body>
