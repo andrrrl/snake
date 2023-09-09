@@ -1,11 +1,18 @@
 {
   "name": "snake",
   "version": "1.0.0",
-  "description": "snake game",
-  "main": "snake.js",
+  "description": "",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "andrrr",
-  "license": "ISC"
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "readline-sync": "^1.4.10",
+    "serialport": "^12.0.0"
+  }
 }

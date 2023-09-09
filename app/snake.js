@@ -274,6 +274,17 @@ const SnakeGame = () => {
         boardConfig.resetGame()
         snake.resetSnake()
         boardConfig.initGame()
+        let listening = false;
+
+        if (!listening) {
+            const events = new EventSource('http://localhost:3000/events');
+            events.onmessage = (event) => {
+                const direction = JSON.parse(event.data);
+                console.log({direction});
+                snake.userMove(direction)
+            };
+            listening = true;
+        }
     }, false)
 
     document.addEventListener('keypress', (e) => {
@@ -287,3 +298,4 @@ const SnakeGame = () => {
 }
 
 SnakeGame()
+
